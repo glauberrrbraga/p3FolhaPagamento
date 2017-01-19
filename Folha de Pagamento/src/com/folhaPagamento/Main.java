@@ -6,6 +6,7 @@ public class Main {
 	public static void main(String[] args) {
 		int opcao = 0;
 		int quantidade = 1;
+		Scanner user = new Scanner(System.in);
 		System.out.println("Sistema Folha de Pagamento\n\nEscolha a opção desejada:\n");
 		while(opcao!=100)
 		{
@@ -13,7 +14,7 @@ public class Main {
 			System.out.println("4: Lançar um resultado de venda\n5: Lançar uma taxa de serviço\n6: Alterar detalhes de um empregado");
 			System.out.println("7: Rodar folha de pagamento para hoje\n8: Desfazer ou refazer alguma alteração\n9: Mostrar agenda de pagamento\n10: Criar nova agenda de pagamento");
 			
-			Scanner user = new Scanner(System.in);
+			
 			opcao = Integer.valueOf(user.next());
 			if(opcao == 100)
 			{
