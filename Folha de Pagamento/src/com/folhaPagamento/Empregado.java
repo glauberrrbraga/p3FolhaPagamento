@@ -8,7 +8,9 @@ public class Empregado {
 	int horasTabalhadas; //Somente se ele for horista
 	int horasExtras; 
 	int diaPagamento; 
-	int sindicato; //1 -> SIM; 2 -> NAO
+	double taxaSindicato;
+	double percentual;
+	int pagamento; //1 -> correio; 2 -> em maos; 3 -> deposito 
 	double salarioMensal; 
 	double salarioComissao; 
 	int numeroEmpregado; //Deve ser gerado automaticamente
