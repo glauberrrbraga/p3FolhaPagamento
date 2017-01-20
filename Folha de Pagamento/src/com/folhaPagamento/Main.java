@@ -9,7 +9,7 @@ public class Main {
 		Scanner user = new Scanner(System.in);
 		Empregado [] empregado = new Empregado[100];	
 
-		System.out.println("Sistema Folha de Pagamento\n\nEscolha a opção desejada:\n");
+		System.out.println("Sistema Folha de Pagamento\nDigite o dia\nEscolha a opção desejada:\n");
 		while(opcao!=12)
 		{
 			System.out.println("1: Adicionar um novo empregado\n2: Remover um empregado existente\n3: Lançar um cartão de ponto");
@@ -33,35 +33,37 @@ public class Main {
 
 				System.out.print("Digite o endereço completo do empregado (Rua/Av, Num, Bairro e Cidade): ");
 				empregado[quantidade].endereço = user.nextLine();
-				System.out.print("Digite o tipo do empregado: (1 -> Horista; 2 -> Assalariado; 3 -> Comissionado): ");
+				System.out.print("Digite o tipo do empregado: (1: Horista; 2: Assalariado; 3: Comissionado): ");
 				empregado[quantidade].tipo = user.nextInt();
 				if(empregado[quantidade].tipo == 1){
-					System.out.println("Empregado Horista\nInformações Adicionais..");
+					System.out.println("Empregado Horista\nPagamento é realizado todas às sextas-feiras");
+					empregado[quantidade].diaPagamento = 1;
 					System.out.print("O empregado já possui horas trabalhadas? Se negativo, digite 0, caso contrario, digite o numero de horas trabalhadas: ");
 					empregado[quantidade].horasTabalhadas = Integer.valueOf(user.next());
-					System.out.println("O empregado já possui horas extras trabalhadas? Se negativo, digite 0, caso contrario, digite o numero de horas extras trabalhadas: ");
+					System.out.print("O empregado já possui horas extras trabalhadas? Se negativo, digite 0, caso contrario, digite o numero de horas extras trabalhadas: ");
 					empregado[quantidade].horasExtras = Integer.valueOf(user.next());
 				}
 				else if (empregado[quantidade].tipo == 2) {
-					System.out.print("Funcionario Assalariado não comissionado\nDigite o salario do funcionario: ");
+					System.out.print("Funcionario Assalariado não comissionado\nPagamento é realizado a cada 2 sextas-feiras.\nDigite o salario do funcionario: ");
+					empregado[quantidade].diaPagamento = 2;
 					empregado[quantidade].salarioMensal = Double.valueOf(user.next());
 					System.out.print("O empregado já possui horas trabalhadas? Se negativo, digite 0, caso contrario, digite o numero de horas trabalhadas: ");
 					empregado[quantidade].horasTabalhadas = Integer.valueOf(user.next());
 				}
 				else if (empregado[quantidade].tipo == 3)
 				{
-					System.out.print("Funcionario Assalariado Comissionado\nDigite o salario do funcionario: ");
+					System.out.print("Funcionario Assalariado Comissionado\nPagamento realizando sempre no ultimo dia do mês\nDigite o salario do funcionario: ");
 					empregado[quantidade].salarioMensal = Double.valueOf(user.next());
 					System.out.print("Digite o percentual de comissão que o funcionario recebe (Exemplo: 0.5%): ");
 					empregado[quantidade].percentual = Double.valueOf(user.next());
 					System.out.print("O empregado já possui horas trabalhadas? Se negativo, digite 0, caso contrario, digite o numero de horas trabalhadas: ");
 					empregado[quantidade].horasTabalhadas = Integer.valueOf(user.next());
 				}
-				System.out.print("Quase pronto. Digite a forma como o funcionario prefere receber o salario (1: Cheque via Correios; 2: Cheque entregue em mãos; 3: Deposito bancario): ");
+				System.out.print("Digite a forma como o funcionario prefere receber o salario (1: Cheque via Correios; 2: Cheque entregue em mãos; 3: Deposito bancario): ");
 				empregado[quantidade].pagamento = Integer.valueOf(user.next());
-				System.out.print("Caso o funcionario pertença a algum sindicato, digite a taxa descontada pelo sindicato, caso contrario, digite 0: ");
+				System.out.print("Quase pronto...\nCaso o funcionario pertença a algum sindicato, digite a taxa descontada pelo sindicato, caso contrario, digite 0: ");
 				empregado[quantidade].taxaSindicato = Double.valueOf(user.next());
-				System.out.println("Funcionario adicionado com sucesso.");
+				System.out.println("\nFuncionario adicionado com sucesso.\n");
 				quantidade++; 
 				numero++;
 				
@@ -121,7 +123,7 @@ public class Main {
 					if (aux == empregado[i].numeroEmpregado) {
 						System.out.printf("Nome do empregado: %s\n", empregado[i].nome);
 						if (empregado[i].tipo == 3) {
-							System.out.print("Empregado Assalariado Comissionado.\n Digite o valor da compra realizada (Ex.: 500.00): ");
+							System.out.print("Empregado Assalariado Comissionado.\n Digite o valor da venda realizada (Ex.: 500.00): ");
 							auxD = Double.valueOf(user.next());
 							empregado[i].vendaMes += auxD;
 							i = quantidade;
@@ -130,8 +132,26 @@ public class Main {
 							System.out.println("Empregado não comissionado, opção não disponível.\n");
 						}
 					}
+					else{
+						System.out.println("Funcionario não encontrado.");
+					}
 				}
 			}
+			else if (opcao == 6) {
+				System.out.print("Alterar detalhes de um funcionário\nDigite o codigo do funcionário: ");
+				aux = Integer.valueOf(user.next());
+				for (i = 0; i < quantidade; i++) {
+					if (aux == empregado[i].numeroEmpregado) {
+						System.out.print("Nome do empregado: " + empregado[i].nome + "\nDigite o codigo da informação que deseja alterar: ");
+						
+					}
+					else{
+						System.out.println("Funcionario não encontrado.");
+					}
+				}
+			}
+			
+			
 			else if(opcao == 11)
 			{
 				System.out.print("Digite o codigo do funcionario: ");
