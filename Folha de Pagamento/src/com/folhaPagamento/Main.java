@@ -33,7 +33,7 @@ public class Main {
 
 				System.out.print("Digite o endereço completo do empregado (Rua/Av, Num, Bairro e Cidade): ");
 				empregado[quantidade].endereço = user.nextLine();
-				System.out.print("Digite o tipo do empregado: (1: Horista; 2: Assalariado; 3: Comissionado): ");
+				System.out.print("Digite o tipo do empregado (1: Horista; 2: Assalariado; 3: Comissionado): ");
 				empregado[quantidade].tipo = user.nextInt();
 				if(empregado[quantidade].tipo == 1){
 					System.out.println("Empregado Horista\nPagamento é realizado todas às sextas-feiras");
@@ -127,25 +127,41 @@ public class Main {
 							auxD = Double.valueOf(user.next());
 							empregado[i].vendaMes += auxD;
 							i = quantidade;
-						}
-						else{
+						} else {
 							System.out.println("Empregado não comissionado, opção não disponível.\n");
 						}
-					}
-					else{
+					} else {
 						System.out.println("Funcionario não encontrado.");
 					}
 				}
-			}
-			else if (opcao == 6) {
+			} else if (opcao == 6) {
 				System.out.print("Alterar detalhes de um funcionário\nDigite o codigo do funcionário: ");
 				aux = Integer.valueOf(user.next());
 				for (i = 0; i < quantidade; i++) {
 					if (aux == empregado[i].numeroEmpregado) {
-						System.out.print("Nome do empregado: " + empregado[i].nome + "\nDigite o codigo da informação que deseja alterar: ");
-						
-					}
-					else{
+						System.out.println("Nome do empregado: "+ empregado[i].nome);
+						System.out.print("Digite o codigo da informação que deseja alterar (1: Nome; 2: Endereço; 3: Tipo; 4: Forma de pagamento; 5: Sindicato: ");
+						horas = Integer.valueOf(user.next());
+						if (horas == 1) {
+							System.out.print("Digite o nome do funcionario: ");
+							empregado[i].nome = user.nextLine();
+							empregado[i].nome = user.nextLine();
+						} else if (horas == 2) {
+							System.out.print("Digite o endereço do funcionario: ");
+							empregado[i].endereço = user.nextLine();
+							empregado[i].endereço = user.nextLine();
+						} else if (horas == 3) {
+							System.out.print("Digite o tipo do empregado (1: Horista; 2: Assalariado; 3: Comissionado): ");
+							empregado[i].tipo = user.nextInt();
+						} else if (horas == 4) {
+							System.out.print("Digite a forma de pagamento preferida pelo funcionario (1: Cheque via Correios; 2: Cheque entregue em mãos; 3: Deposito bancario): ");
+							empregado[i].pagamento = user.nextInt();
+						}
+						else if (horas == 5) {
+							System.out.print("Se o funcionario pertence a um sindicato, digite a taxa que o mesmo cobra do funcionario. Caso contrário, digite 0: ");
+							empregado[i].pagamento = user.nextInt();
+						}
+					} else {
 						System.out.println("Funcionario não encontrado.");
 					}
 				}
