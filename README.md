@@ -4,7 +4,7 @@ O objetivo do projeto é construir um sistema de folha de pagamento.
 
 
 Tarefas a serem concluidas:
-- [ ] Adicionar um empregado
+- [x] Adicionar um empregado
 - [ ] Remoção de um empregado
 - [ ] Lançar um cartão de ponto
 - [ ] Lançar um resultado venda
