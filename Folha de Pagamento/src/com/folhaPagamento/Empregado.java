@@ -6,7 +6,8 @@ public class Empregado {
 	int tipo; //1 = horista; 2 = assalariado; 3 = comissionado
 	double salarioHorario; 
 	int horasTabalhadas; //Somente se ele for horista
-	int horasExtras; 
+	int horasExtras;
+	double vendaMes;
 	int diaPagamento; 
 	double taxaSindicato;
 	double percentual;
