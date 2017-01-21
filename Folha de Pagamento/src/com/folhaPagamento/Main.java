@@ -1,15 +1,34 @@
 package com.folhaPagamento;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Scanner;
 
 public class Main {
 	public static void main(String[] args) {
-		int opcao = 0, quantidade = 0, numero = 1, aux, i, horas, cadastrados = 0;
+		int opcao = 0, quantidade = 0, numero = 1, aux, i, horas, cadastrados = 0, entrada, saida;
 		double auxD;
-		Scanner user = new Scanner(System.in);
-		Empregado [] empregado = new Empregado[100];	
+		Date currentDate = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/YYYY");
 
-		System.out.println("Sistema Folha de Pagamento\nDigite o dia\nEscolha a opção desejada:\n");
+		Scanner user = new Scanner(System.in);
+		Empregado[] empregado = new Empregado[100];
+		System.out.println("Data: " + sdf.format(currentDate));
+
+		System.out.println("TESTE DATA:");
+
+		try {
+			String userDate;
+			userDate = user.nextLine();
+			SimpleDateFormat sdfBirthday = new SimpleDateFormat("dd/MM/YYYY");
+			Date birthday = sdfBirthday.parse(userDate);
+			System.out.println(userDate);
+
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+				
+		System.out.println("Sistema Folha de Pagamento\nEscolha a opção desejada:\n");
 		while(opcao!=12)
 		{
 			System.out.println("1: Adicionar um novo empregado\n2: Remover um empregado existente\n3: Lançar um cartão de ponto");
@@ -118,10 +137,13 @@ public class Main {
 						if (aux == empregado[i].numeroEmpregado) {
 
 							System.out.printf("Nome do empregado: %s\n", empregado[i].nome);
-							System.out.println("Horas extras trabalhadas até o momento: " + empregado[i].horasExtras);
 							if (empregado[i].tipo == 1) {
-								System.out.print("Empregado Horista.\n Digite o numero de horas trabalhadas: ");
-								horas = Integer.valueOf(user.next());
+								System.out.print("Empregado Horista.\nDigite a hora de entrada: ");
+								entrada = Integer.valueOf(user.next());
+								System.out.print("Digite a hora de saída: ");
+								saida = Integer.valueOf(user.next());
+								
+								horas = saida - entrada;
 								if (horas > 8) {
 									horas = horas - 8;
 									empregado[i].horasExtras += horas;
@@ -170,6 +192,25 @@ public class Main {
 					System.out.println("Não há funcionarios cadastrados. Opção inválida.\n");
 				}
 			}
+			
+			else if (opcao == 5) {
+				if (cadastrados > 0) {
+					System.out.println("Lançar uma taxa de serviço.");	
+					System.out.println("Funcionarios cadastrados atualmente:");
+					for (i = 0; i < quantidade; i++) {
+						if (empregado[i].nome != null) {
+							System.out.println(empregado[i].numeroEmpregado + " : " + empregado[i].nome + "\n");
+						}
+					}
+					System.out.print("Digite o codigo do funcionario desejado: ");
+					aux = Integer.valueOf(user.next());
+					System.out.println("");
+				}
+			}
+			
+			
+			
+			
 			
 			else if (opcao == 6) {
 				if (cadastrados > 0) {
