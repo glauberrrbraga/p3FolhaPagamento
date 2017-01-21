@@ -7,6 +7,7 @@ public class Empregado {
 	double salarioHorario; 
 	int horasTabalhadas; //Somente se ele for horista
 	int horasExtras;
+	int diasTrabalhados;
 	double vendaMes;
 	int diaPagamento; 
 	double taxaSindicato;
