@@ -9,7 +9,7 @@ Tarefas a serem concluidas:
 - [x] Lançar um cartão de ponto
 - [x] Lançar um resultado venda
 - [ ] Lançar uma taxa de serviço
-- [ ] Alterar detalhes de um empregado
+- [x] Alterar detalhes de um empregado
 - [ ] Rodar a folha de pagamento para hoje
 - [ ] Desfazer e refazer
 - [ ] Agenda de pagamento
