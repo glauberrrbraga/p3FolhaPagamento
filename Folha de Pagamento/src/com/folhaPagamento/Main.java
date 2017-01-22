@@ -38,10 +38,10 @@ public class Main {
 					"4: Lançar um resultado de venda\n5: Lançar uma taxa de serviço\n6: Alterar detalhes de um empregado");
 			System.out.println(
 					"7: (beta)Rodar folha de pagamento para hoje \n8: (em breve)Desfazer ou refazer alguma alteração\n9: Mostrar agenda de pagamento \n10: (em breve)Criar nova agenda de pagamento");
-			System.out.println("11: Vizualizar detalhes sobre um funcionario expecifico\n12: Sair");
+			System.out.println("11: Sair");
 
 			opcao = Integer.valueOf(user.next());
-			if (opcao == 12) {
+			if (opcao == 11) {
 				System.out.println("Até Logo!");
 				break;
 			} else if (opcao == 1) {
@@ -472,25 +472,26 @@ public class Main {
 				}
 			}
 
-			else if (opcao == 11) {
-				System.out.print("Digite o codigo do funcionario: ");
-				aux = Integer.valueOf(user.next());
-				for (i = 0; i < quantidade; i++) {
-					if (aux == empregado[i].numeroEmpregado) {
-
-						System.out.printf("Nome do empregado: %s\n", empregado[i].nome);
-						System.out.printf("Endereço do empregado: %s\n", empregado[i].endereço);
-						System.out.println("Tipo: " + empregado[i].tipo);
-						System.out.println("Valor do Salario Mensal: R$" + empregado[i].salarioMensal);
-						System.out.println("Percentual: " + empregado[i].percentual + "%");
-						System.out.println("Taxa sindicato: " + empregado[i].taxaSindicato + "%");
-						System.out.println("Horas trabalhadas: " + empregado[i].horasTabalhadas);
-						System.out.println("Horas extras: " + empregado[i].horasExtras);
-						System.out.println("Salario Total: " + empregado[i].salarioTotal);
-						System.out.println("\n");
-					}
-				}
-			} else {
+//			else if (opcao == 11) {
+//				System.out.print("Digite o codigo do funcionario: ");
+//				aux = Integer.valueOf(user.next());
+//				for (i = 0; i < quantidade; i++) {
+//					if (aux == empregado[i].numeroEmpregado) {
+//
+//						System.out.printf("Nome do empregado: %s\n", empregado[i].nome);
+//						System.out.printf("Endereço do empregado: %s\n", empregado[i].endereço);
+//						System.out.println("Tipo: " + empregado[i].tipo);
+//						System.out.println("Valor do Salario Mensal: R$" + empregado[i].salarioMensal);
+//						System.out.println("Percentual: " + empregado[i].percentual + "%");
+//						System.out.println("Taxa sindicato: " + empregado[i].taxaSindicato + "%");
+//						System.out.println("Horas trabalhadas: " + empregado[i].horasTabalhadas);
+//						System.out.println("Horas extras: " + empregado[i].horasExtras);
+//						System.out.println("Salario Total: " + empregado[i].salarioTotal);
+//						System.out.println("\n");
+//					}
+//				}
+//			}
+			else {
 				System.out.println("Opção inválida. Tente novamente.\n");
 			}
 		}
