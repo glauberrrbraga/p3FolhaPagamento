@@ -3,17 +3,18 @@ package com.folhaPagamento;
 public class Empregado {
 	String nome;
 	String endereço;
-	int tipo; //1 = horista; 2 = assalariado; 3 = comissionado
+	int tipo; 
 	double salarioHorario; 
-	int horasTabalhadas;
-	int horasExtras;
+	double horasTabalhadas;
+	double horasExtras;
 	double vendaMes;
 	int diaPagamento; 
 	double taxaSindicato;
 	double percentual;
-	int pago = 0;
 	int pagamento; //1 -> correio; 2 -> em maos; 3 -> deposito 
 	double salarioMensal; 
+	int dia; //Se o funcionario quiser trocar o dia de pagamento, vai ser salvo ai 
 	double salarioComissao; 
+	double salarioTotal;
 	int numeroEmpregado; //Deve ser gerado automaticamente
 }
