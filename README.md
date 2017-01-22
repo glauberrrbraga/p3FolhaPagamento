@@ -1,4 +1,4 @@
-xepositorio para o projeto "Folha de pagamento" da discipina P3.
+Repositorio para o projeto "Folha de pagamento" da discipina P3.
 
 O objetivo do projeto é construir um sistema de folha de pagamento.
 
@@ -12,5 +12,5 @@ Tarefas a serem concluidas:
 - [x] Alterar detalhes de um empregado
 - [x] Rodar a folha de pagamento para hoje
 - [ ] Desfazer e refazer
-- [ ] Agenda de pagamento
+- [x] Agenda de pagamento
 - [ ] Criação de novas agendas de pagamento
