@@ -1,39 +1,38 @@
 package com.folhaPagamento;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Scanner;
 
 public class Main {
 	public static void main(String[] args) {
 		int opcao = 0, quantidade = 0, numero = 1, aux, i, horas, cadastrados = 0, entrada, saida;
 		double auxD;
-		Date currentDate = new Date();
-		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/YYYY");
-
 		Scanner user = new Scanner(System.in);
 		Empregado[] empregado = new Empregado[100];
-		System.out.println("Data: " + sdf.format(currentDate));
+		System.out.println("Antes de começar, digite o dia, mês e o ano, separados por uma quebra de linha:");
+		int dia, mes, ano;
+		System.out.print("Dia: ");
+		dia = Integer.valueOf(user.next());
 
-		System.out.println("TESTE DATA:");
+		System.out.print("Mês: ");
+		mes = Integer.valueOf(user.next());
+		mes--;
+		System.out.print("Ano: ");
+		ano = Integer.valueOf(user.next());
 
-		try {
-			String userDate;
-			userDate = user.nextLine();
-			SimpleDateFormat sdfBirthday = new SimpleDateFormat("dd/MM/YYYY");
-			Date birthday = sdfBirthday.parse(userDate);
-			System.out.println(userDate);
-
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
-				
+		Calendar data = new GregorianCalendar(ano, mes, dia);
+		System.out.print("Data atual: ");
+		System.out.println(data.get(Calendar.DAY_OF_MONTH) + "/" + (data.get(Calendar.MONTH) + 1) + "/" + data.get(Calendar.YEAR));
+	
 		System.out.println("Sistema Folha de Pagamento\nEscolha a opção desejada:\n");
 		while(opcao!=12)
 		{
 			System.out.println("1: Adicionar um novo empregado\n2: Remover um empregado existente\n3: Lançar um cartão de ponto");
-			System.out.println("4: Lançar um resultado de venda\n5: (em breve)Lançar uma taxa de serviço\n6: Alterar detalhes de um empregado");
-			System.out.println("7: (em breve)Rodar folha de pagamento para hoje \n8: (em breve)Desfazer ou refazer alguma alteração\n9: (em breve)Mostrar agenda de pagamento \n10: (em breve)Criar nova agenda de pagamento");
+			System.out.println("4: (beta)Lançar um resultado de venda\n5: (beta)Lançar uma taxa de serviço\n6: Alterar detalhes de um empregado");
+			System.out.println("7: (beta)Rodar folha de pagamento para hoje \n8: (em breve)Desfazer ou refazer alguma alteração\n9: (beta)Mostrar agenda de pagamento \n10: (em breve)Criar nova agenda de pagamento");
 			System.out.println("11: Vizualizar detalhes sobre um funcionario expecifico\n12: Sair");
 			
 			opcao = Integer.valueOf(user.next());
@@ -73,6 +72,7 @@ public class Main {
 					empregado[quantidade].salarioMensal = Double.valueOf(user.next());
 					System.out.print("Digite o percentual de comissão que o funcionario recebe (Exemplo: 0.5): ");
 					empregado[quantidade].percentual = Double.valueOf(user.next());
+					empregado[quantidade].diaPagamento = 3;
 				}
 				System.out.print("Digite a forma como o funcionario prefere receber o salario (1: Cheque via Correios; 2: Cheque entregue em mãos; 3: Deposito bancario): ");
 				empregado[quantidade].pagamento = Integer.valueOf(user.next());
@@ -204,7 +204,6 @@ public class Main {
 					}
 					System.out.print("Digite o codigo do funcionario desejado: ");
 					aux = Integer.valueOf(user.next());
-					System.out.println("");
 				}
 			}
 			
@@ -257,36 +256,125 @@ public class Main {
 				}
 				
 			}
-			
-			
-			else if(opcao == 11)
-			{
+			else if (opcao == 7) {
+				System.out.println("Rodar a folha de pagamento");
+				if (data.get(Calendar.DAY_OF_WEEK) == Calendar.FRIDAY) {
+
+					System.out.println("Sexta-feira\nEmpregados que recebem hoje:");
+					for (i = 0; i < quantidade; i++) {
+						if (empregado[i].tipo == 1 && empregado[i].nome != null) {
+							System.out.println(empregado[i].numeroEmpregado + " : " + empregado[i].nome + "\n");
+							System.out.println("Forma de pagamento: " + empregado[i].diaPagamento);
+							System.out.println("Salario a ser recebido: ");
+							empregado[i].pago++;
+						}
+						if (empregado[i].tipo == 2 && empregado[i].nome != null
+								&& (data.get(Calendar.DAY_OF_MONTH) >= 8 || data.get(Calendar.DAY_OF_MONTH) <= 14)) {
+							System.out.println("Nome do empregado: " + empregado[i].nome);
+
+						}
+					}
+				}
+			}
+
+			else if (opcao == 9) {
+				if (cadastrados > 0) {
+					System.out.println("Agenda de Pagamento");
+					System.out.print(
+							"Digite a opçao desejada (1: Funcionarios pagos toda sexta feira; 2: Funcionarios pagos a cada 2 sextas-feiras;\n3: Funcionarios pagos no ultimo dia util do mês; 4: Funcionarios pagos em outras datas): ");
+					aux = Integer.valueOf(user.next());
+					if (aux == 1) {
+						for (i = 0; i < quantidade; i++) {
+							if (aux == empregado[i].diaPagamento && empregado[i].nome != null) {
+								System.out.println(empregado[i].numeroEmpregado + " : " + empregado[i].nome + "\n");
+							}
+						}
+					} else if (aux == 2) {
+						for (i = 0; i < quantidade; i++) {
+							if (aux == empregado[i].diaPagamento && empregado[i].nome != null) {
+								System.out.println(empregado[i].numeroEmpregado + " : " + empregado[i].nome + "\n");
+							}
+						}
+					} else if (aux == 3) {
+						for (i = 0; i < quantidade; i++) {
+							if (aux == empregado[i].diaPagamento && empregado[i].nome != null) {
+								System.out.println(empregado[i].numeroEmpregado + " : " + empregado[i].nome + "\n");
+							}
+						}
+					} else if (aux == 4) {
+						for (i = 0; i < quantidade; i++) {
+							if (aux == empregado[i].diaPagamento && empregado[i].nome != null) {
+								System.out.println(empregado[i].numeroEmpregado + " : " + empregado[i].nome + "\n");
+							}
+						}
+					}
+				} else {
+					System.out.println("Não há funcionarios cadastrados. Opção inválida.\n");
+				}
+			}
+
+			else if (opcao == 11) {
 				System.out.print("Digite o codigo do funcionario: ");
 				aux = Integer.valueOf(user.next());
-				
-				for(i = 0; i < quantidade; i++){
-					if(aux == empregado[i].numeroEmpregado)
-					{
+
+				for (i = 0; i < quantidade; i++) {
+					if (aux == empregado[i].numeroEmpregado) {
 
 						System.out.printf("Nome do empregado: %s\n", empregado[i].nome);
 						System.out.printf("Endereço do empregado: %s\n", empregado[i].endereço);
 						System.out.println("Tipo: " + empregado[i].tipo);
 						System.out.println("Valor do Salario Mensal: R$" + empregado[i].salarioMensal);
-						System.out.println("Percentual: "+empregado[i].percentual + "%");
+						System.out.println("Percentual: " + empregado[i].percentual + "%");
 						System.out.println("Taxa sindicato: " + empregado[i].taxaSindicato + "%");
-						System.out.println("Horas trabalhadas: "+empregado[i].horasTabalhadas);
+						System.out.println("Horas trabalhadas: " + empregado[i].horasTabalhadas);
 						System.out.println("Horas extras: " + empregado[i].horasExtras);
 						System.out.println("\n");
 					}
 				}
-			}
-			else{
+			} else {
 				System.out.println("Opção inválida. Tente novamente.\n");
 			}
-			
 
 		}
 
+	}
 }
 
-}
+// public static Calendar checaFDS(Calendar data)
+// {
+// // se for domingo
+// if (data.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY)
+// {
+// data.add(Calendar.DATE, 1);
+// System.out.println("Eh domingo, mudando data para +1 dias");
+// }
+// // se for sábado
+// else if (data.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY)
+// {
+// data.add(Calendar.DATE, 2);
+// System.out.println("Eh sabado, mudando data para +2 dias");
+// }
+// else if (data.get(Calendar.DAY_OF_WEEK) == Calendar.FRIDAY)
+// {
+//
+// System.out.println("Sexta-feira\nEmpregados que recebem hoje:");
+// for (i = 0; i < quantidade; i++) {
+// if (empregado[i].diaPagamento == 1 && empregado[i].nome != null) {
+// System.out.println("Nome do empregado: "+ empregado[i].nome);
+//
+// }
+// }
+//
+//
+// }
+// else
+// {
+// System.out.println("Eh dia de semana, mantem data");
+// }
+// return data;
+//
+//
+//
+// }
+//
+// }

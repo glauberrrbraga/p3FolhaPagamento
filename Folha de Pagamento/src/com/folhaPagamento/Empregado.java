@@ -5,13 +5,13 @@ public class Empregado {
 	String endereço;
 	int tipo; //1 = horista; 2 = assalariado; 3 = comissionado
 	double salarioHorario; 
-	int horasTabalhadas; //Somente se ele for horista
+	int horasTabalhadas;
 	int horasExtras;
-	int diasTrabalhados;
 	double vendaMes;
 	int diaPagamento; 
 	double taxaSindicato;
 	double percentual;
+	int pago = 0;
 	int pagamento; //1 -> correio; 2 -> em maos; 3 -> deposito 
 	double salarioMensal; 
 	double salarioComissao; 
