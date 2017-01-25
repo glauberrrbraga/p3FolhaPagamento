@@ -40,7 +40,7 @@ public class Main {
 					"7: Rodar folha de pagamento para hoje \n8: (em breve)Desfazer ou refazer alguma alteração\n9: Mostrar agenda de pagamento \n10: Criar nova agenda de pagamento");
 			System.out.println("11: Mostras dados de um usuário expecifico\n12: Sair");
 
-			opcao = Integer.valueOf(user.next());
+			opcao = user.nextInt();
 			if (opcao == 12) {
 				System.out.println("Até Logo!");
 				break;
@@ -73,7 +73,7 @@ public class Main {
 					empregado[quantidade].salarioMensal = Double.valueOf(user.next());
 				} else if (empregado[quantidade].tipo == 3) {
 					System.out.print(
-							"Funcionario Assalariado Comissionado\nPagamento realizando a cada 2 sextas-feiras.\nDigite o salario do funcionario: ");
+							"Funcionario Assalariado Comissionado\nPagamento realizando a cada 2 sextas-feiras.\nDigite o salario quinzenal do funcionario: ");
 					empregado[quantidade].salarioMensal = Double.valueOf(user.next());
 					empregado[quantidade].salarioMensal = empregado[quantidade].salarioMensal / 2;
 
@@ -201,15 +201,23 @@ public class Main {
 					for (i = 0; i < quantidade; i++) {
 						if (empregado[i].nome != null) {
 							System.out.println(empregado[i].numeroEmpregado + " : " + empregado[i].nome + "\n");
-							System.out.print("Digite o codigo do funcionario desejado: ");
-							aux = Integer.valueOf(user.next());
+						}
+					}
+					System.out.print("Digite o codigo do funcionario desejado: ");
+					aux = Integer.valueOf(user.next());
+					for (i = 0; i < quantidade; i++) {
+						if (aux == empregado[i].numeroEmpregado && empregado[i].nome != null) {
 							System.out.print(
 									"Descontar uma taxa de serviço.\nDigite o valor em reais que deve ser descontado do salario do funcionario: ");
 							auxD = Double.valueOf(user.next());
-							empregado[i].salarioTotal -= auxD;
+							empregado[i].salarioTotal = empregado[i].salarioTotal - auxD;
+						}
+						else{
+							System.out.println("Opção inválida.");
 						}
 
 					}
+
 				}
 			}
 
@@ -276,8 +284,8 @@ public class Main {
 									System.out.println("Horista. Algumas informações precisam ser adicionadas:");
 									System.out.print(
 											"Pagamento agora será realizado toda sexta-feira.\nDigite quanto o funcionario recebe por hora trabalhada: ");
-									empregado[quantidade].salarioHorario = Double.valueOf(user.next());
-									empregado[quantidade].diaPagamento = 1;
+									empregado[i].salarioHorario = Double.valueOf(user.next());
+									empregado[i].diaPagamento = 1;
 								}
 
 							} else if (horas == 4) {
@@ -302,7 +310,7 @@ public class Main {
 				if (data.get(Calendar.DAY_OF_WEEK) == Calendar.FRIDAY) {
 					System.out.println("Sexta-feira\nEmpregados que recebem hoje:");
 					for (i = 0; i < quantidade; i++) {
-						if (empregado[i].tipo == 1 && empregado[i].nome != null) {
+						if (empregado[i].diaPagamento == 1 && empregado[i].nome != null) {
 							System.out.println(empregado[i].numeroEmpregado + " : " + empregado[i].nome + "\n");
 							empregado[i].salarioTotal += ((empregado[i].salarioHorario * empregado[i].horasTabalhadas
 									+ empregado[i].horasExtras * 1.5 * empregado[i].salarioHorario));
@@ -325,7 +333,7 @@ public class Main {
 								System.out.println("O pagamento deve ser feito via deposito bancario.");
 							}
 						}
-						if (empregado[i].tipo == 3 && empregado[i].nome != null
+						if (empregado[i].diaPagamento == 3 && empregado[i].nome != null
 								&& (data.get(Calendar.DAY_OF_MONTH) >= 8 && data.get(Calendar.DAY_OF_MONTH) <= 14)) {
 							System.out.println("Segunda sexta feira do mês");
 							System.out.println(empregado[i].numeroEmpregado + " : " + empregado[i].nome);
@@ -350,7 +358,7 @@ public class Main {
 								System.out.println("O pagamento deve ser feito via deposito bancario.");
 							}
 
-						} else if (empregado[i].tipo == 3 && empregado[i].nome != null
+						} else if (empregado[i].diaPagamento == 3 && empregado[i].nome != null
 								&& (data.get(Calendar.DAY_OF_MONTH) >= 25 && data.get(Calendar.DAY_OF_MONTH) <= 31)) {
 							System.out.println("Quarta sexta feira do mês.\n");
 							System.out.println(empregado[i].numeroEmpregado + " : " + empregado[i].nome);
@@ -385,7 +393,7 @@ public class Main {
 						&& data.get(Calendar.DAY_OF_WEEK) != Calendar.SATURDAY) {
 					System.out.println("Ultimo dia util do mês.\nEmpregados que recebem hoje:");
 					for (i = 0; i < quantidade; i++) {
-						if (empregado[i].tipo == 2 && empregado[i].nome != null) {
+						if (empregado[i].diaPagamento == 2 && empregado[i].nome != null) {
 							System.out.println(empregado[i].numeroEmpregado + " : " + empregado[i].nome);
 							empregado[i].salarioTotal += ((empregado[i].salarioHorario * empregado[i].horasTabalhadas
 									+ empregado[i].horasExtras * 1.5 * empregado[i].salarioHorario));
@@ -402,7 +410,7 @@ public class Main {
 							empregado[i].salarioComissao = 0;
 							empregado[i].vendaMes = 0;
 							
-							if (empregado[i].pagamento == 1) {
+							if (empregado[i].diaPagamento == 1) {
 								System.out.println("O pagamento deve ser feito com cheque via correios.");
 							} else if (empregado[i].pagamento == 2) {
 								System.out.println("O pagamento deve ser feito com cheque em mãos.");
@@ -412,17 +420,19 @@ public class Main {
 						}
 
 					}
-				} else if(data.get(Calendar.DAY_OF_WEEK) != Calendar.FRIDAY){
+				} 
 					for (i = 0; i < quantidade; i++) {
 						if (empregado[i].diaPagamento == 4 && empregado[i].dia == data.get(Calendar.DAY_OF_MONTH)) {
 							System.out.println("Como hoje é dia " + data.get(Calendar.DAY_OF_MONTH)
 									+ ", o empregado deve receber pagamento.");
 							System.out.println(empregado[i].numeroEmpregado + " : " + empregado[i].nome);
+							
 							empregado[i].salarioTotal += ((empregado[i].salarioHorario * empregado[i].horasTabalhadas
 									+ empregado[i].horasExtras * 1.5 * empregado[i].salarioHorario));
 							empregado[i].salarioTotal += ((empregado[i].vendaMes * empregado[i].percentual / 100
 									+ empregado[i].salarioMensal));
 							empregado[i].salarioTotal -= (empregado[i].salarioTotal * empregado[i].taxaSindicato) / 100;
+							
 							System.out.printf("Salario a ser recebido: R$ %.1f\n", empregado[i].salarioTotal);
 							System.out.println("Valor cobrada pelo sindicato: R$ "
 									+ (empregado[i].salarioTotal * empregado[i].taxaSindicato) / 100 + "\n");
@@ -443,7 +453,7 @@ public class Main {
 
 					}
 
-				}
+				
 			}
 
 			else if (opcao == 9) {

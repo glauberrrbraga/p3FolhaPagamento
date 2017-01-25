@@ -15,6 +15,6 @@ public class Empregado {
 	double salarioMensal; 
 	int dia; //Se o funcionario quiser trocar o dia de pagamento, vai ser salvo ai 
 	double salarioComissao; 
-	double salarioTotal;
+	double salarioTotal = 0;
 	int numeroEmpregado; //Deve ser gerado automaticamente
 }
