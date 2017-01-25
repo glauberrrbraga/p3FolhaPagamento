@@ -37,11 +37,11 @@ public class Main {
 			System.out.println(
 					"4: Lançar um resultado de venda\n5: Lançar uma taxa de serviço\n6: Alterar detalhes de um empregado");
 			System.out.println(
-					"7: (beta)Rodar folha de pagamento para hoje \n8: (em breve)Desfazer ou refazer alguma alteração\n9: Mostrar agenda de pagamento \n10: (em breve)Criar nova agenda de pagamento");
-			System.out.println("11: Sair");
+					"7: Rodar folha de pagamento para hoje \n8: (em breve)Desfazer ou refazer alguma alteração\n9: Mostrar agenda de pagamento \n10: Criar nova agenda de pagamento");
+			System.out.println("11: Mostras dados de um usuário expecifico\n12: Sair");
 
 			opcao = Integer.valueOf(user.next());
-			if (opcao == 11) {
+			if (opcao == 12) {
 				System.out.println("Até Logo!");
 				break;
 			} else if (opcao == 1) {
@@ -315,6 +315,8 @@ public class Main {
 							empregado[i].salarioTotal = 0;
 							empregado[i].horasTabalhadas = 0;
 							empregado[i].horasExtras = 0;
+							empregado[i].salarioComissao = 0;
+							empregado[i].vendaMes = 0;
 							if (empregado[i].pagamento == 1) {
 								System.out.println("O pagamento deve ser feito com cheque via correios.");
 							} else if (empregado[i].pagamento == 2) {
@@ -336,10 +338,10 @@ public class Main {
 							System.out.println("Valor cobrada pelo sindicato: R$ "
 									+ (empregado[i].salarioTotal * empregado[i].taxaSindicato) / 100 + "\n");
 							empregado[i].salarioTotal = 0;
-							empregado[i].vendaMes = 0;
-							empregado[i].salarioTotal = 0;
 							empregado[i].horasTabalhadas = 0;
 							empregado[i].horasExtras = 0;
+							empregado[i].salarioComissao = 0;
+							empregado[i].vendaMes = 0;
 							if (empregado[i].pagamento == 1) {
 								System.out.println("O pagamento deve ser feito com cheque via correios.");
 							} else if (empregado[i].pagamento == 2) {
@@ -362,10 +364,10 @@ public class Main {
 									+ (empregado[i].salarioTotal * empregado[i].taxaSindicato) / 100 + "\n");
 
 							empregado[i].salarioTotal = 0;
+							empregado[i].horasTabalhadas = 0;
+							empregado[i].horasExtras = 0;
+							empregado[i].salarioComissao = 0;
 							empregado[i].vendaMes = 0;
-							empregado[i].salarioTotal = 0;
-							empregado[i].horasTabalhadas = 0;
-							empregado[i].horasExtras = 0;
 							if (empregado[i].pagamento == 1) {
 								System.out.println("O pagamento deve ser feito com cheque via correios.");
 							} else if (empregado[i].pagamento == 2) {
@@ -377,7 +379,9 @@ public class Main {
 						}
 
 					}
-				} else if (data.get(Calendar.DAY_OF_MONTH) == 31 && data.get(Calendar.DAY_OF_WEEK) != Calendar.SUNDAY
+				}
+				
+				else if (data.get(Calendar.DAY_OF_MONTH) == 31 && data.get(Calendar.DAY_OF_WEEK) != Calendar.SUNDAY
 						&& data.get(Calendar.DAY_OF_WEEK) != Calendar.SATURDAY) {
 					System.out.println("Ultimo dia util do mês.\nEmpregados que recebem hoje:");
 					for (i = 0; i < quantidade; i++) {
@@ -395,6 +399,9 @@ public class Main {
 							empregado[i].salarioTotal = 0;
 							empregado[i].horasTabalhadas = 0;
 							empregado[i].horasExtras = 0;
+							empregado[i].salarioComissao = 0;
+							empregado[i].vendaMes = 0;
+							
 							if (empregado[i].pagamento == 1) {
 								System.out.println("O pagamento deve ser feito com cheque via correios.");
 							} else if (empregado[i].pagamento == 2) {
@@ -405,11 +412,11 @@ public class Main {
 						}
 
 					}
-				} else if (data.get(Calendar.DAY_OF_MONTH) == 31 && data.get(Calendar.DAY_OF_WEEK) != Calendar.SUNDAY
-						&& data.get(Calendar.DAY_OF_WEEK) != Calendar.SATURDAY) {
-					System.out.println("Ultimo dia util do mês.\nEmpregados que recebem hoje:");
+				} else if(data.get(Calendar.DAY_OF_WEEK) != Calendar.FRIDAY){
 					for (i = 0; i < quantidade; i++) {
-						if (empregado[i].tipo == 2 && empregado[i].nome != null) {
+						if (empregado[i].diaPagamento == 4 && empregado[i].dia == data.get(Calendar.DAY_OF_MONTH)) {
+							System.out.println("Como hoje é dia " + data.get(Calendar.DAY_OF_MONTH)
+									+ ", o empregado deve receber pagamento.");
 							System.out.println(empregado[i].numeroEmpregado + " : " + empregado[i].nome);
 							empregado[i].salarioTotal += ((empregado[i].salarioHorario * empregado[i].horasTabalhadas
 									+ empregado[i].horasExtras * 1.5 * empregado[i].salarioHorario));
@@ -422,6 +429,8 @@ public class Main {
 							empregado[i].salarioTotal = 0;
 							empregado[i].horasTabalhadas = 0;
 							empregado[i].horasExtras = 0;
+							empregado[i].salarioComissao = 0;
+							empregado[i].vendaMes = 0;
 							if (empregado[i].pagamento == 1) {
 								System.out.println("O pagamento deve ser feito com cheque via correios.");
 							} else if (empregado[i].pagamento == 2) {
@@ -429,9 +438,11 @@ public class Main {
 							} else if (empregado[i].pagamento == 3) {
 								System.out.println("O pagamento deve ser feito via deposito bancario.");
 							}
+
 						}
 
 					}
+
 				}
 			}
 
@@ -445,18 +456,39 @@ public class Main {
 						for (i = 0; i < quantidade; i++) {
 							if (aux == empregado[i].diaPagamento && empregado[i].nome != null) {
 								System.out.println(empregado[i].numeroEmpregado + " : " + empregado[i].nome + "\n");
+								if (empregado[i].pagamento == 1) {
+									System.out.println("O pagamento deve ser feito com cheque via correios.");
+								} else if (empregado[i].pagamento == 2) {
+									System.out.println("O pagamento deve ser feito com cheque em mãos.");
+								} else if (empregado[i].pagamento == 3) {
+									System.out.println("O pagamento deve ser feito via deposito bancario.");
+								}
 							}
 						}
 					} else if (aux == 2) {
 						for (i = 0; i < quantidade; i++) {
 							if (aux == empregado[i].diaPagamento && empregado[i].nome != null) {
 								System.out.println(empregado[i].numeroEmpregado + " : " + empregado[i].nome + "\n");
+								if (empregado[i].pagamento == 1) {
+									System.out.println("O pagamento deve ser feito com cheque via correios.");
+								} else if (empregado[i].pagamento == 2) {
+									System.out.println("O pagamento deve ser feito com cheque em mãos.");
+								} else if (empregado[i].pagamento == 3) {
+									System.out.println("O pagamento deve ser feito via deposito bancario.");
+								}
 							}
 						}
 					} else if (aux == 3) {
 						for (i = 0; i < quantidade; i++) {
 							if (aux == empregado[i].diaPagamento && empregado[i].nome != null) {
 								System.out.println(empregado[i].numeroEmpregado + " : " + empregado[i].nome + "\n");
+								if (empregado[i].pagamento == 1) {
+									System.out.println("O pagamento deve ser feito com cheque via correios.");
+								} else if (empregado[i].pagamento == 2) {
+									System.out.println("O pagamento deve ser feito com cheque em mãos.");
+								} else if (empregado[i].pagamento == 3) {
+									System.out.println("O pagamento deve ser feito via deposito bancario.");
+								}
 							}
 						}
 					} else if (aux == 4) {
@@ -464,33 +496,121 @@ public class Main {
 							if (aux == empregado[i].diaPagamento && empregado[i].nome != null) {
 								System.out.println(empregado[i].numeroEmpregado + " : " + empregado[i].nome + "\n");
 								System.out.println("Dia de pagamento: " + empregado[i].dia);
+								if (empregado[i].pagamento == 1) {
+									System.out.println("O pagamento deve ser feito com cheque via correios.");
+								} else if (empregado[i].pagamento == 2) {
+									System.out.println("O pagamento deve ser feito com cheque em mãos.");
+								} else if (empregado[i].pagamento == 3) {
+									System.out.println("O pagamento deve ser feito via deposito bancario.");
+								}
+								
 							}
 						}
 					}
 				} else {
 					System.out.println("Não há funcionarios cadastrados. Opção inválida.\n");
 				}
+			}else if (opcao == 10) {
+				if (cadastrados > 0) {
+					System.out.println("Alterar Pagamento");
+					System.out.println("Funcionarios cadastrados atualmente:");
+					for (i = 0; i < quantidade; i++) {
+						if (empregado[i].nome != null) {
+							System.out.println(empregado[i].numeroEmpregado + " : " + empregado[i].nome + "\n");
+						}
+					}
+					System.out.print("Digite o codigo do funcionario desejado: ");
+					aux = Integer.valueOf(user.next());
+					for (i = 0; i < quantidade; i++) {
+						if (aux == empregado[i].numeroEmpregado && empregado[i].nome != null) {
+							System.out.println("Nome do empregado: " + empregado[i].nome);
+							System.out.print(
+									"Digite a opção desejada (1: Alterar para recebimento toda sexta-feira; 2: Alterar para recebimento a cada duas sextas-feiras;\n3: Alterar para recebimento no ultimo dia util do mês; 4: Alterar para qualquer dia do mês):");
+							empregado[i].diaPagamento = Integer.valueOf(user.next());
+							if (empregado[i].diaPagamento == 4) {
+								System.out.print("Digite o dia em que o funcionario deve ser pago: ");
+								empregado[i].dia = Integer.valueOf(user.next());
+							}
+						}
+					}
+
+				} else {
+					System.out.println("Não há funcionarios cadastrados. Opção inválida.\n");
+				}
+			}
+			
+			else if (opcao == 11) {
+				if (cadastrados > 0) {
+					System.out.println("Visualizar funcionarios cadastrados.");
+					System.out.println("Funcionarios cadastrados atualmente:");
+					for (i = 0; i < quantidade; i++) {
+						if (empregado[i].nome != null) {
+							System.out.println(empregado[i].numeroEmpregado + " : " + empregado[i].nome + "\n");
+						}
+					}
+					System.out.print("Digite o codigo do funcionario desejado: ");
+					aux = Integer.valueOf(user.next());
+					for (i = 0; i < quantidade; i++) {
+						if (aux == empregado[i].numeroEmpregado) {
+
+							System.out.printf("Nome do empregado: %s\n", empregado[i].nome);
+							System.out.printf("Endereço do empregado: %s\n", empregado[i].endereço);
+							if (empregado[i].tipo == 1) {
+								System.out.println("Funcionario Horista.");
+								System.out.println("Horas trabalhadas: " + empregado[i].horasTabalhadas);
+								System.out.println("Horas extras trabalhadas: " + empregado[i].horasExtras);
+								System.out.println("Taxa descontada pelo sindicato: " + empregado[i].taxaSindicato + "%");
+								
+							} else if (empregado[i].tipo == 2) {
+								System.out.println("Funcionario Assalariado.");
+								System.out.println("Valor do Salario Mensal: R$" + empregado[i].salarioMensal);
+								System.out.println("Taxa descontada pelo sindicato: " + empregado[i].taxaSindicato + "%");
+							} else if (empregado[i].tipo == 3) {
+								System.out.println("Funcionario Assalariado Comissionado.");
+								System.out.println("Valor do Salario Mensal: R$" + empregado[i].salarioMensal);
+								System.out.println("Taxa descontada pelo sindicato: " + empregado[i].taxaSindicato + "%");
+								System.out.println("Percentual recebido por cada venda: " + empregado[i].percentual + "%");
+							}
+							
+							if (empregado[i].pagamento == 1) {
+								System.out.println("O pagamento deve ser feito com cheque via correios.\n");
+							} else if (empregado[i].pagamento == 2) {
+								System.out.println("O pagamento deve ser feito com cheque em mãos.\n");
+							} else if (empregado[i].pagamento == 3) {
+								System.out.println("O pagamento deve ser feito via deposito bancario.\n");
+							}
+							
+							
+							
+						}
+					}
+					
+					
+
+				} else {
+					System.out.println("Não há funcionarios cadastrados. Opção inválida.\n");
+				}
 			}
 
-//			else if (opcao == 11) {
-//				System.out.print("Digite o codigo do funcionario: ");
-//				aux = Integer.valueOf(user.next());
-//				for (i = 0; i < quantidade; i++) {
-//					if (aux == empregado[i].numeroEmpregado) {
-//
-//						System.out.printf("Nome do empregado: %s\n", empregado[i].nome);
-//						System.out.printf("Endereço do empregado: %s\n", empregado[i].endereço);
-//						System.out.println("Tipo: " + empregado[i].tipo);
-//						System.out.println("Valor do Salario Mensal: R$" + empregado[i].salarioMensal);
-//						System.out.println("Percentual: " + empregado[i].percentual + "%");
-//						System.out.println("Taxa sindicato: " + empregado[i].taxaSindicato + "%");
-//						System.out.println("Horas trabalhadas: " + empregado[i].horasTabalhadas);
-//						System.out.println("Horas extras: " + empregado[i].horasExtras);
-//						System.out.println("Salario Total: " + empregado[i].salarioTotal);
-//						System.out.println("\n");
-//					}
-//				}
-//			}
+			else if (opcao == 11) {
+				System.out.print("Digite o codigo do funcionario: ");
+				aux = Integer.valueOf(user.next());
+				for (i = 0; i < quantidade; i++) {
+					if (aux == empregado[i].numeroEmpregado) {
+
+						System.out.printf("Nome do empregado: %s\n", empregado[i].nome);
+						System.out.printf("Endereço do empregado: %s\n", empregado[i].endereço);
+						System.out.println("Tipo: " + empregado[i].tipo);
+						System.out.println("Valor do Salario Mensal: R$" + empregado[i].salarioMensal);
+						System.out.println("Percentual: " + empregado[i].percentual + "%");
+						System.out.println("Taxa sindicato: " + empregado[i].taxaSindicato + "%");
+						System.out.println("Horas trabalhadas: " + empregado[i].horasTabalhadas);
+						System.out.println("Horas extras: " + empregado[i].horasExtras);
+						System.out.println("Salario Total: " + empregado[i].salarioTotal);
+						System.out.println("\n");
+					}
+				}
+			}
 			else {
 				System.out.println("Opção inválida. Tente novamente.\n");
 			}
