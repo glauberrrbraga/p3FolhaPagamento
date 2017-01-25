@@ -13,4 +13,4 @@ Tarefas a serem concluidas:
 - [x] Rodar a folha de pagamento para hoje
 - [ ] Desfazer e refazer
 - [x] Agenda de pagamento
-- [ ] Criação de novas agendas de pagamento
+- [x] Criação de novas agendas de pagamento
